@@ -1,5 +1,6 @@
 #include "loginpanel.h"
 #include <qpushbutton.h>
+#include <QtWidgets\qgridlayout.h>
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass) {
@@ -13,7 +14,11 @@ LoginPanel::~LoginPanel(){
 }
 
 void LoginPanel::loadComponent(){
+	QWidget *loginWindow = new QWidget(this);
+	
+	QGridLayout* loginlayout = new QGridLayout();
 
+	
 }
 
 void LoginPanel::quit() {

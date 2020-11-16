@@ -14,10 +14,13 @@ public:
 
 private:
 	Ui::LoginPanelClass *ui;
-	void loadComponent();
+	QWidget *loadComponent();
 
 private slots:
 	void quit();
+	void test();
+
+public slots:
 
 };
 

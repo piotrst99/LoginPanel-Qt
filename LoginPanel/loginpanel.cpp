@@ -3,19 +3,20 @@
 #include <QtWidgets\qgridlayout.h>
 #include <QLabel>
 #include <QLineEdit>
+#include <qmessagebox.h>
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass) {
 	ui->setupUi(this);
 	
-	loadComponent();
+	loadComponent()->show();
 }
 
 LoginPanel::~LoginPanel(){
 	delete ui;
 }
 
-void LoginPanel::loadComponent(){
+QWidget *LoginPanel::loadComponent(){
 	QWidget* loginWindow = new QWidget(this);
 	loginWindow->setGeometry(20, 20, 250, 100);
 	
@@ -30,8 +31,9 @@ void LoginPanel::loadComponent(){
 
 	QPushButton* loginButton = new QPushButton("Login");
 	loginButton->setFixedSize(80, 25);
-	connect(loginButton, SIGNAL(clicked()), this, SLOT(quit()));
-
+	connect(loginButton, SIGNAL(clicked()), this, SLOT(test()));
+	//connect(loginButton, SIGNAL(clicked()), this, SLOT(quit()));
+	
 	loginlayout->addWidget(loginLabel, 0, 0);
 	loginlayout->addWidget(loginTxt, 0, 1);
 
@@ -41,7 +43,18 @@ void LoginPanel::loadComponent(){
 	loginlayout->addWidget(loginButton,2,1);
 
 	loginWindow->setLayout(loginlayout);
-	loginWindow->show();
+	//loginWindow->show();
+
+	return loginWindow;
+}
+
+void LoginPanel::test(){
+	if ("atr" == "Piotr"){
+		QMessageBox::information(this, "Msg", "Ok");
+	}
+	else {
+		QMessageBox::information(this, "Msg", "Nie ok");
+	}
 }
 
 void LoginPanel::quit() {

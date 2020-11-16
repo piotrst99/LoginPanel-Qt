@@ -1,14 +1,11 @@
 #include "loginpanel.h"
 #include <qpushbutton.h>
-#include "components.h"
-#include <QGroupBox>
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass) {
 	ui->setupUi(this);
 	
 	loadComponent();
-
 }
 
 LoginPanel::~LoginPanel(){
@@ -16,15 +13,13 @@ LoginPanel::~LoginPanel(){
 }
 
 void LoginPanel::loadComponent(){
-
+	QPushButton *button = new QPushButton("&Kliknij", this);
+	button->setGeometry(100, 100, 80, 30);
+	connect(button, SIGNAL(clicked()), this, SLOT());
 }
 
-void LoginPanel::quit(){
-	QApplication::exit();
-}
 
 
-// qgridlayout
 
 
 
@@ -40,5 +35,3 @@ void LoginPanel::quit(){
 
 
 // https://www.youtube.com/watch?v=BYQxCyB-TP4
-
-// https://www.youtube.com/watch?v=J_Clau1bYco

@@ -16,9 +16,6 @@ private:
 	Ui::LoginPanelClass *ui;
 	void loadComponent();
 
-private slots:
-	void quit();
-
 };
 
 #endif // !LOGINPANEL_H

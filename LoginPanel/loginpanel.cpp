@@ -1,6 +1,8 @@
 #include "loginpanel.h"
 #include <qpushbutton.h>
 #include <QtWidgets\qgridlayout.h>
+#include <QLabel>
+#include <QLineEdit>
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass) {
@@ -14,11 +16,32 @@ LoginPanel::~LoginPanel(){
 }
 
 void LoginPanel::loadComponent(){
-	QWidget *loginWindow = new QWidget(this);
+	QWidget* loginWindow = new QWidget(this);
+	loginWindow->setGeometry(20, 20, 250, 100);
 	
 	QGridLayout* loginlayout = new QGridLayout();
 
-	
+	QLabel* loginLabel = new QLabel("Login:");
+	QLineEdit* loginTxt = new QLineEdit;
+
+	QLabel* passwordLabel = new QLabel("Password:");
+	QLineEdit* passwordTxt = new QLineEdit;
+	passwordTxt->setEchoMode(QLineEdit::Password);
+
+	QPushButton* loginButton = new QPushButton("Login");
+	loginButton->setFixedSize(80, 25);
+	connect(loginButton, SIGNAL(clicked()), this, SLOT(quit()));
+
+	loginlayout->addWidget(loginLabel, 0, 0);
+	loginlayout->addWidget(loginTxt, 0, 1);
+
+	loginlayout->addWidget(passwordLabel, 1, 0);
+	loginlayout->addWidget(passwordTxt, 1, 1);
+
+	loginlayout->addWidget(loginButton,2,1);
+
+	loginWindow->setLayout(loginlayout);
+	loginWindow->show();
 }
 
 void LoginPanel::quit() {

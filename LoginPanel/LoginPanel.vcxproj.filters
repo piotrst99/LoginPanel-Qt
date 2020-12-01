@@ -31,6 +31,9 @@
     <ClCompile Include="loginpanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dbController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="loginpanel.h">
@@ -46,5 +49,10 @@
     <QtRcc Include="loginpanel.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dbController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

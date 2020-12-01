@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dbController.cpp" />
     <ClCompile Include="loginpanel.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -93,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="loginpanel.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dbController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

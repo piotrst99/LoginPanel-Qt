@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_loginpanel.h"
+#include "dbController.h"
 
 class LoginPanel : public QMainWindow
 {
@@ -14,9 +15,14 @@ public:
 
 private:
 	Ui::LoginPanelClass *ui;
+	DatabaseConnect db;
+	void setSignals();
 
 private slots:
+	void login();
 	void quit();
+	void logOut();
+
 	void test();
 
 public slots:

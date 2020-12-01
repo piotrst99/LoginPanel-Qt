@@ -14,7 +14,6 @@ public:
 
 private:
 	Ui::LoginPanelClass *ui;
-	QWidget *loadComponent();
 
 private slots:
 	void quit();

@@ -12,6 +12,7 @@ LoginPanel::LoginPanel(QWidget* parent)
 		"login"){
 
 	ui->setupUi(this);
+	ui->stackedWidget->setCurrentIndex(0);
 	setSignals();
 }
 
@@ -20,60 +21,72 @@ LoginPanel::~LoginPanel(){
 }
 
 void LoginPanel::setSignals(){
-	//connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(test()));
 	connect(ui->loginButton, SIGNAL(clicked()), this, SLOT(login()));
 	connect(ui->quitButton, SIGNAL(clicked()), this, SLOT(quit()));
-
-	connect(ui->LogOutButton, SIGNAL(clicked()), this, SLOT(logOut()));
-
-	ui->widgetAfterLogin->setVisible(false);
+	connect(ui->logOutButton, SIGNAL(clicked()), this, SLOT(logOut()));
+	connect(ui->registerButton, SIGNAL(clicked()), this, SLOT(registerPanel()));
+	connect(ui->backButton, SIGNAL(clicked()), this, SLOT(backToLogin()));
 }
+
 
 void LoginPanel::login() {
 	if (db.openDatabase()) {
-		//QMessageBox::information(this, "Login result", "Login is suscess");
-		QSqlQuery query("SELECT name,age FROM loginPassword WHERE login='" + ui->loginTxt->text() + "' AND password='" + ui->passwordTxt->text() + "'");
+		QSqlQuery query("SELECT id FROM loginPassword WHERE login='" + ui->loginTxt->text() + "' AND password='" + ui->passwordTxt->text() + "'");
 
-		//QString qStr = "";
-		//int age = 0;
 		int count = 0;
 
 		while (query.next()) {
 			count++;
-			//qStr = query.value(0).toString();
-			//age = query.value(1).toInt();
 		}
-		//QMessageBox::information(this, "value", "Name: " + qStr + "\nAge: " + QString::number(age));
 
 		if (count == 1) {
-			ui->loginResultText->setText("Login and password are correct.");
-			ui->loginResultText->setStyleSheet("color:green");
-
-			ui->loginTxt->clear();
-			ui->passwordTxt->clear();
-			ui->loginResultText->clear();
-
-			ui->loginWidget->setVisible(false);
-			ui->widgetAfterLogin->setVisible(true);
+			loginResult(true);
 		}
 		else {
-			ui->loginResultText->setText("Login or password are not correct.");
-			ui->loginResultText->setStyleSheet("color:red");
+			loginResult(false);
 		}
 
 	}
 	else {
-		QMessageBox::information(this, "Login result", "Login is not suscess");
+		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+}
+
+void LoginPanel::loginResult(bool result){
+	if (result) {
+		QSqlQuery dataQuery("SELECT name, age FROM loginPassword WHERE login='" + ui->loginTxt->text() + "'");
+		QString name = "";
+		int age = 0;
+
+		while (dataQuery.next()) {
+			name = dataQuery.value(0).toString();
+			age = dataQuery.value(1).toInt();
+		}
+
+		ui->loginTxt->clear();
+		ui->passwordTxt->clear();
+		ui->loginResultText->clear();
+
+		ui->stackedWidget->setCurrentIndex(1);
+
+		ui->welcomeLabel->setText("Welcome " + name + " " + QString::number(age));
+	}
+	else{
+		ui->loginResultText->setText("Login or password are not correct.");
+		ui->loginResultText->setStyleSheet("color:red");
 	}
 }
 
 void LoginPanel::logOut(){
-	ui->widgetAfterLogin->setVisible(false);
-	ui->loginWidget->setVisible(true);
+	ui->stackedWidget->setCurrentIndex(0);
 }
 
-void LoginPanel::test(){
-	QMessageBox::information(this, "Msg", "Ok");
+void LoginPanel::registerPanel(){
+	ui->stackedWidget->setCurrentIndex(2);
+}
+
+void LoginPanel::backToLogin(){
+	ui->stackedWidget->setCurrentIndex(0);
 }
 
 void LoginPanel::quit() {

@@ -54,5 +54,8 @@
     <ClInclude Include="dbController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="registerVerify.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

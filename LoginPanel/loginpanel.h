@@ -12,18 +12,21 @@ class LoginPanel : public QMainWindow
 public:
 	LoginPanel(QWidget *parent = Q_NULLPTR);
 	~LoginPanel();
+	//virtual ~LoginPanel();
 
 private:
 	Ui::LoginPanelClass *ui;
 	DatabaseConnect db;
+
 	void setSignals();
+	void loginResult(bool result);
 
 private slots:
 	void login();
 	void quit();
 	void logOut();
-
-	void test();
+	void registerPanel();
+	void backToLogin();
 
 public slots:
 

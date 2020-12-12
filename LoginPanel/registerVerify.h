@@ -1,6 +1,0 @@
-#ifndef REGISTERVERIFY_H
-#define REGISTERVERIFY_H
-
-
-
-#endif // !REGISTERVERIFY_H

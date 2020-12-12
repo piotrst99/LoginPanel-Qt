@@ -27,6 +27,8 @@ private slots:
 	void logOut();
 	void registerPanel();
 	void backToLogin();
+	//void changePage(int page);
+	void registerUser();
 
 public slots:
 

@@ -2,42 +2,53 @@
 #define VERIFYDATA_H
 
 #include <string>
+#include <set>
 
 namespace verifyData {
+	bool isMonkey(std::string& eMail) {
+		return (eMail.find('@') != std::string::npos) ? false : true;
+	}
+
 	bool checkEmail(std::string email) {
 		if (email.length() > 5 && email.length() < 256) {
-			if ((email[email.length() - 3] == '.' || email[email.length() - 4] == '.')) {
+			if ((email[email.length() - 3] == '.' || email[email.length() - 4] == '.') && !isMonkey(email)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
+	bool minimumLength(std::string& pwd) { return (pwd.length() >= 8); }
+	bool areLowercase(std::string& pwd) { return std::any_of(begin(pwd), end(pwd), islower); }
+	bool areUppercase(std::string& pwd) { return std::any_of(begin(pwd), end(pwd), isupper); }
+	bool areNumber(std::string& pwd) { return std::any_of(begin(pwd), end(pwd), isdigit); }
+	bool areSpecialChar(std::string& pwd) {
+		auto specialChar = [](char sChar) {
+			std::set<char> specialChars = { '_','$','-','%','!','@','#','^','&','*','(',')','=','+','/','?','.','<','>',',',':',';' };
+			return specialChars.count(sChar);
+		};
+		return std::any_of(begin(pwd), end(pwd), specialChar);
+	}
+
 	bool checkPassword(std::string password) {
-		if (password.length() >= 8) {
-			return true;
-		}
-		return false;
+		return minimumLength(password) &&
+			areLowercase(password) &&
+			areUppercase(password) &&
+			areNumber(password) &&
+			areSpecialChar(password);
 	}
 
 	bool checkName(std::string name) {
 		if (name.length() > 0) {
-			for (int i = 0; i < name.length(); ++i) {
-				if (!isalpha(name[i])) {
-					return false;
-				}
-			}
-			return true;
+			return areLowercase(name) &&
+				areUppercase(name) &&
+				!areNumber(name) &&
+				!areSpecialChar(name);
 		}
 		return false;
 	}
 
-	bool checkAge(int age) {
-		if (age > 0) {
-			return true;
-		}
-		return false;
-	}
+	bool checkAge(int age) { return (age > 0) ? true : false; }
 }
 
 #endif // !VERIFYDATA_H

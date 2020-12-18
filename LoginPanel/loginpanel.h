@@ -20,6 +20,7 @@ private:
 
 	void setSignals();
 	void loginResult(bool result);
+	bool checkEmailIsNotExist(QString email);
 
 private slots:
 	void login();

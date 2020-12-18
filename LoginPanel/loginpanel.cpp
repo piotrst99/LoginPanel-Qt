@@ -34,20 +34,9 @@ void LoginPanel::setSignals(){
 void LoginPanel::login() {
 	if (db.openDatabase()) {
 		QSqlQuery query("SELECT id FROM loginPassword WHERE login='" + ui->loginTxt->text() + "' AND password='" + ui->passwordTxt->text() + "'");
-
 		int count = 0;
-
-		while (query.next()) {
-			count++;
-		}
-
-		if (count == 1) {
-			loginResult(true);
-		}
-		else {
-			loginResult(false);
-		}
-
+		while (query.next()) { count++; }
+		(count == 1) ? loginResult(true) : loginResult(false);
 	}
 	else {
 		QMessageBox::information(this, "Database driver", "Database is not open.");
@@ -91,13 +80,25 @@ void LoginPanel::registerPanel(){
 
 void LoginPanel::backToLogin(){
 	ui->stackedWidget->setCurrentIndex(0);
+
+	ui->emailTxt->clear();
+	ui->passwordTxt_2->clear();
+	ui->nameTxt->clear();
+	ui->surnameTxt->clear();
+	ui->ageSpinBox->clear();
+
+	ui->emailError->clear();
+	ui->passwordError->clear();
+	ui->nameError->clear();
+	ui->surnameError->clear();
+	ui->ageError->clear();
 }
 
 void LoginPanel::registerUser(){
 	bool emailIsCorrect = verifyData::checkEmail(ui->emailTxt->text().toUtf8().constData());
-	//QMessageBox::information(this, "", QString::number(emailIsCorrect));
-	if (!emailIsCorrect) {
-		ui->emailError->setText("E-mail is not correct");
+	bool emailIsNotExist = checkEmailIsNotExist(ui->emailTxt->text());
+	if (!emailIsCorrect || !emailIsNotExist) {
+		ui->emailError->setText("E-mail is not correct or is exist");
 		ui->emailError->setStyleSheet("color: red");
 	}
 	else {
@@ -143,6 +144,31 @@ void LoginPanel::registerUser(){
 	else {
 		ui->ageError->setText("Age is correct");
 		ui->ageError->setStyleSheet("color: green");
+	}
+
+	if (emailIsCorrect && emailIsNotExist && passwordIsCorrect && nameIsCorrect && surnameIsCorrect && ageIsCorrect) {
+		if (db.openDatabase()) {
+			QSqlQuery insertQuery;
+			insertQuery.exec("INSERT INTO loginPassword (name,surname,age,login,password)" "VALUES ('" + ui->nameTxt->text() + "','" +
+				ui->surnameTxt->text() + "','" + ui->ageSpinBox->text() + "','" + ui->emailTxt->text() + "','" + ui->passwordTxt_2->text() + "')");
+
+			QMessageBox::information(this, "Register tesult", "Account has been created.");
+		}
+		else {
+			QMessageBox::information(this, "Database driver", "Database is not open.");
+		}
+	}
+}
+
+bool LoginPanel::checkEmailIsNotExist(QString email) {
+	if (db.openDatabase()) {
+		QSqlQuery query("SELECT id FROM loginPassword WHERE login='" + email + "'");
+		int count = 0;
+		while (query.next()) { count++; }
+		return (count == 0) ? true : false;
+	}
+	else {
+		return false;
 	}
 }
 

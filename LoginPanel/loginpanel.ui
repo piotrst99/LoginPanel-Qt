@@ -24,20 +24,20 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QGroupBox" name="loginBox">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>133</x>
         <y>70</y>
-        <width>311</width>
+        <width>312</width>
         <height>201</height>
        </rect>
       </property>
       <property name="title">
-       <string>SignIn</string>
+       <string/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -49,6 +49,13 @@
           <layout class="QHBoxLayout" name="loginLayout">
            <item>
             <widget class="QLabel" name="loginLabel">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>User Name</string>
              </property>
@@ -63,6 +70,13 @@
           <layout class="QHBoxLayout" name="passwordLayout">
            <item>
             <widget class="QLabel" name="passwordLabel">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Password</string>
              </property>
@@ -83,15 +97,15 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="buttonsLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="horizontalSpacer_2">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>98</width>
+             <width>40</width>
              <height>20</height>
             </size>
            </property>
@@ -105,6 +119,19 @@
           </widget>
          </item>
          <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QPushButton" name="registerButton">
            <property name="text">
             <string>Register</string>
@@ -112,13 +139,13 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_2">
+          <spacer name="horizontalSpacer_6">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>98</width>
+             <width>40</width>
              <height>20</height>
             </size>
            </property>
@@ -179,6 +206,19 @@
       </property>
       <property name="text">
        <string>Log Out</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="settingsButton">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Settings</string>
       </property>
      </widget>
     </widget>
@@ -514,6 +554,47 @@
         </item>
        </layout>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="testBtn">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>120</y>
+        <width>101</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>test</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="backMenuButton">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;-</string>
+      </property>
      </widget>
     </widget>
    </widget>

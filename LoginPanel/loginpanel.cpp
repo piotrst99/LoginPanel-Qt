@@ -15,6 +15,7 @@ LoginPanel::LoginPanel(QWidget* parent)
 	ui->setupUi(this);
 	ui->stackedWidget->setCurrentIndex(0);
 	setSignals();
+	setComponents();
 }
 
 LoginPanel::~LoginPanel(){
@@ -28,8 +29,24 @@ void LoginPanel::setSignals(){
 	connect(ui->registerButton, SIGNAL(clicked()), this, SLOT(registerPanel()));
 	connect(ui->backButton, SIGNAL(clicked()), this, SLOT(backToLogin()));
 	connect(ui->registerButton_2, SIGNAL(clicked()), this, SLOT(registerUser()));
+	connect(ui->settingsButton, SIGNAL(clicked()), this, SLOT(goToSetting()));
+	connect(ui->backMenuButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
+	connect(ui->testBtn, SIGNAL(clicked()), this, SLOT(quit()));
 }
 
+void LoginPanel::setComponents(){
+	ui->stackedWidget->setStyleSheet("background-color:#585b5e");
+	ui->loginLabel->setStyleSheet("color:white;");
+	ui->passwordLabel->setStyleSheet("color:white;");
+	ui->loginTxt->setStyleSheet("border:2px solid #DDD; color:#CCC; border-radius: 5px; background-color: #333;");
+	ui->passwordTxt->setStyleSheet("border:2px solid #DDD; color:#CCC; border-radius: 5px; background-color: #333;");
+	//ui->loginBox->setStyleSheet("border: 4px solid #1C74B2; border-radius: 15px; ");
+	//ui->loginButton->setStyleSheet("border-radius: 1px; background-color:#808080");
+	//ui->registerButton->setStyleSheet("border-radius: 1px; background-color:#808080");
+	ui->loginButton->setStyleSheet("color:#CCC;");
+	ui->registerButton->setStyleSheet("color:#CCC;");
+	ui->quitButton->setStyleSheet("color:#CCC");
+}
 
 void LoginPanel::login() {
 	if (db.openDatabase()) {
@@ -92,6 +109,14 @@ void LoginPanel::backToLogin(){
 	ui->nameError->clear();
 	ui->surnameError->clear();
 	ui->ageError->clear();
+}
+
+void LoginPanel::goToSetting(){
+	ui->stackedWidget->setCurrentIndex(3);
+}
+
+void LoginPanel::backToMenu(){
+	ui->stackedWidget->setCurrentIndex(1);
 }
 
 void LoginPanel::registerUser(){

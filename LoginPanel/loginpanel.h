@@ -19,6 +19,7 @@ private:
 	DatabaseConnect db;
 
 	void setSignals();
+	void setComponents();
 	void loginResult(bool result);
 	bool checkEmailIsNotExist(QString email);
 
@@ -28,6 +29,8 @@ private slots:
 	void logOut();
 	void registerPanel();
 	void backToLogin();
+	void goToSetting();
+	void backToMenu();
 	//void changePage(int page);
 	void registerUser();
 

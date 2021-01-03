@@ -36,6 +36,11 @@
         <height>201</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
       <property name="title">
        <string/>
       </property>
@@ -113,6 +118,11 @@
          </item>
          <item>
           <widget class="QPushButton" name="loginButton">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Login</string>
            </property>
@@ -133,6 +143,11 @@
          </item>
          <item>
           <widget class="QPushButton" name="registerButton">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Register</string>
            </property>
@@ -155,6 +170,11 @@
        </item>
        <item>
         <widget class="QLabel" name="loginResultText">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -175,13 +195,15 @@
        <string>Quit</string>
       </property>
      </widget>
+     <zorder>quitButton</zorder>
+     <zorder>loginBox</zorder>
     </widget>
     <widget class="QWidget" name="mainPage">
      <widget class="QLabel" name="welcomeLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>20</y>
         <width>241</width>
         <height>21</height>
        </rect>
@@ -198,36 +220,36 @@
      <widget class="QPushButton" name="logOutButton">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>360</y>
-        <width>75</width>
-        <height>23</height>
+        <x>540</x>
+        <y>20</y>
+        <width>40</width>
+        <height>40</height>
        </rect>
       </property>
       <property name="text">
-       <string>Log Out</string>
+       <string/>
       </property>
      </widget>
      <widget class="QPushButton" name="settingsButton">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>30</y>
-        <width>75</width>
-        <height>23</height>
+        <x>480</x>
+        <y>20</y>
+        <width>40</width>
+        <height>40</height>
        </rect>
       </property>
       <property name="text">
-       <string>Settings</string>
+       <string/>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="registerPage">
      <widget class="QLabel" name="registerLabel">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>20</y>
         <width>100</width>
         <height>20</height>
        </rect>
@@ -556,45 +578,137 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_2">
-     <widget class="QLabel" name="label">
+    <widget class="QWidget" name="settingsPage">
+     <widget class="QLabel" name="settingsLabel">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>47</width>
-        <height>13</height>
+        <x>10</x>
+        <y>20</y>
+        <width>63</width>
+        <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Settings</string>
       </property>
      </widget>
-     <widget class="QLabel" name="testBtn">
-      <property name="geometry">
-       <rect>
-        <x>350</x>
-        <y>120</y>
-        <width>101</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>test</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="backMenuButton">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>30</y>
-        <width>75</width>
-        <height>23</height>
+        <x>540</x>
+        <y>20</y>
+        <width>40</width>
+        <height>40</height>
        </rect>
       </property>
       <property name="text">
-       <string>&lt;-</string>
+       <string/>
       </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>111</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="seetingsOption">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="generalButton">
+         <property name="text">
+          <string>General</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="privateButton">
+         <property name="text">
+          <string>Private</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QStackedWidget" name="settingsStackedWidget">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>80</y>
+        <width>470</width>
+        <height>320</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="generalPage">
+       <widget class="QLabel" name="nameLabelSet">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>30</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="nameTxtSet">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>60</y>
+          <width>113</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="surnameLabelSet">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>30</y>
+          <width>47</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Surname</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="surnameTxtSet">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>60</y>
+          <width>113</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="privatePage"/>
      </widget>
     </widget>
    </widget>

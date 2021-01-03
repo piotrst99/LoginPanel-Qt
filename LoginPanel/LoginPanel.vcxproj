@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dbController.h" />
+    <ClInclude Include="settingsFunction.h" />
     <ClInclude Include="verifyData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

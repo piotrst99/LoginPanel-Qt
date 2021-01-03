@@ -31,6 +31,8 @@ private slots:
 	void backToLogin();
 	void goToSetting();
 	void backToMenu();
+	void goToGeneral();
+	void goToPrivate();
 	//void changePage(int page);
 	void registerUser();
 

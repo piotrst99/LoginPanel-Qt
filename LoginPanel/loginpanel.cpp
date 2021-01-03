@@ -3,6 +3,7 @@
 #include <qmessagebox.h>
 #include <qsqlquery.h>
 #include "verifyData.h"
+#include "settingsFunction.h"
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass),
@@ -14,6 +15,7 @@ LoginPanel::LoginPanel(QWidget* parent)
 
 	ui->setupUi(this);
 	ui->stackedWidget->setCurrentIndex(0);
+	ui->settingsStackedWidget->setCurrentIndex(0);
 	setSignals();
 	setComponents();
 }
@@ -31,11 +33,12 @@ void LoginPanel::setSignals(){
 	connect(ui->registerButton_2, SIGNAL(clicked()), this, SLOT(registerUser()));
 	connect(ui->settingsButton, SIGNAL(clicked()), this, SLOT(goToSetting()));
 	connect(ui->backMenuButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
-	connect(ui->testBtn, SIGNAL(clicked()), this, SLOT(quit()));
+	connect(ui->generalButton, SIGNAL(clicked()), this, SLOT(goToGeneral()));
+	connect(ui->privateButton, SIGNAL(clicked()), this, SLOT(goToPrivate()));
 }
 
-void LoginPanel::setComponents(){
-	ui->stackedWidget->setStyleSheet("background-color:#585b5e");
+void LoginPanel::setComponents() {
+	ui->centralWidget->setStyleSheet("background-color:#585b5e");
 	ui->loginLabel->setStyleSheet("color:white;");
 	ui->passwordLabel->setStyleSheet("color:white;");
 	ui->loginTxt->setStyleSheet("border:2px solid #DDD; color:#CCC; border-radius: 5px; background-color: #333;");
@@ -43,9 +46,13 @@ void LoginPanel::setComponents(){
 	//ui->loginBox->setStyleSheet("border: 4px solid #1C74B2; border-radius: 15px; ");
 	//ui->loginButton->setStyleSheet("border-radius: 1px; background-color:#808080");
 	//ui->registerButton->setStyleSheet("border-radius: 1px; background-color:#808080");
-	ui->loginButton->setStyleSheet("color:#CCC;");
+	ui->loginButton->setStyleSheet("background-color:#36D62D;");
 	ui->registerButton->setStyleSheet("color:#CCC;");
 	ui->quitButton->setStyleSheet("color:#CCC");
+	
+	styleIconButton(ui->settingsButton, QString("..\\LoginPanel\\image\\settingsIcon2.png"));
+	styleIconButton(ui->logOutButton, QString("..\\LoginPanel\\image\\logOutIcon2.png"));
+	styleIconButton(ui->backMenuButton, QString("..\\LoginPanel\\image\\backIcon2.png"));
 }
 
 void LoginPanel::login() {
@@ -117,6 +124,14 @@ void LoginPanel::goToSetting(){
 
 void LoginPanel::backToMenu(){
 	ui->stackedWidget->setCurrentIndex(1);
+}
+
+void LoginPanel::goToGeneral(){
+	ui->settingsStackedWidget->setCurrentIndex(0);
+}
+
+void LoginPanel::goToPrivate(){
+	ui->settingsStackedWidget->setCurrentIndex(1);
 }
 
 void LoginPanel::registerUser(){

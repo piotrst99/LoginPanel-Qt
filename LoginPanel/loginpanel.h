@@ -18,6 +18,8 @@ private:
 	Ui::LoginPanelClass *ui;
 	DatabaseConnect db;
 
+	QString email;
+
 	void setSignals();
 	void setComponents();
 	void loginResult(bool result);
@@ -35,6 +37,7 @@ private slots:
 	void goToPrivate();
 	//void changePage(int page);
 	void registerUser();
+	void changeNameSurname();
 
 public slots:
 

@@ -67,7 +67,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="loginTxt"/>
+            <widget class="QLineEdit" name="loginTxt">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -89,6 +95,11 @@
            </item>
            <item>
             <widget class="QLineEdit" name="passwordTxt">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -272,6 +283,11 @@
         <height>280</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
       <property name="title">
        <string/>
       </property>
@@ -287,6 +303,8 @@
        <property name="font">
         <font>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -305,6 +323,8 @@
        <property name="font">
         <font>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -323,6 +343,8 @@
        <property name="font">
         <font>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -338,6 +360,11 @@
          <height>22</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="passwordTxt_2">
        <property name="geometry">
@@ -347,6 +374,11 @@
          <width>180</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string/>
@@ -364,6 +396,11 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
       </widget>
       <widget class="QLabel" name="ageLabel">
        <property name="geometry">
@@ -377,6 +414,8 @@
        <property name="font">
         <font>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -395,6 +434,8 @@
        <property name="font">
         <font>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -410,6 +451,11 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="nameTxt">
        <property name="geometry">
@@ -419,6 +465,11 @@
          <width>180</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="emailError">
@@ -517,7 +568,7 @@
          <x>15</x>
          <y>240</y>
          <width>431</width>
-         <height>25</height>
+         <height>26</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -536,6 +587,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="registerButton_2">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Register</string>
           </property>
@@ -556,6 +612,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="backButton">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Back</string>
           </property>
@@ -579,24 +640,6 @@
      </widget>
     </widget>
     <widget class="QWidget" name="settingsPage">
-     <widget class="QLabel" name="settingsLabel">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>63</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Settings</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="backMenuButton">
       <property name="geometry">
        <rect>
@@ -609,44 +652,6 @@
       <property name="text">
        <string/>
       </property>
-     </widget>
-     <widget class="QWidget" name="gridLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>111</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="seetingsOption">
-       <property name="leftMargin">
-        <number>5</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="generalButton">
-         <property name="text">
-          <string>General</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="privateButton">
-         <property name="text">
-          <string>Private</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
      <widget class="QStackedWidget" name="settingsStackedWidget">
       <property name="geometry">
@@ -664,11 +669,16 @@
        <widget class="QLabel" name="nameLabelSet">
         <property name="geometry">
          <rect>
-          <x>50</x>
+          <x>30</x>
           <y>30</y>
-          <width>47</width>
-          <height>13</height>
+          <width>50</width>
+          <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Name</string>
@@ -679,19 +689,29 @@
          <rect>
           <x>30</x>
           <y>60</y>
-          <width>113</width>
+          <width>150</width>
           <height>20</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
         </property>
        </widget>
        <widget class="QLabel" name="surnameLabelSet">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>210</x>
           <y>30</y>
-          <width>47</width>
-          <height>13</height>
+          <width>70</width>
+          <height>16</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>Surname</string>
@@ -700,15 +720,137 @@
        <widget class="QLineEdit" name="surnameTxtSet">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>210</x>
           <y>60</y>
+          <width>150</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="changeNameSettings">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>55</y>
+          <width>81</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Change</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="privatePage">
+       <widget class="QLineEdit" name="emailTxtSet">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>100</y>
           <width>113</width>
           <height>20</height>
          </rect>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="privatePage"/>
+     </widget>
+     <widget class="QWidget" name="settingsLeft" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>130</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>100</y>
+         <width>131</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="seetingsOption">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="privateButton">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Private</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="generalButton">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>General</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="topSettingsLeft" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>130</width>
+         <height>80</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="settingsLabel">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>92</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Settings</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </widget>
    </widget>

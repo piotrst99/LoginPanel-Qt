@@ -4,6 +4,8 @@
 #include <qsqlquery.h>
 #include "verifyData.h"
 #include "settingsFunction.h"
+#include <QFileDialog>
+#include <QBuffer>
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass),
@@ -36,6 +38,8 @@ void LoginPanel::setSignals(){
 	connect(ui->generalButton, SIGNAL(clicked()), this, SLOT(goToGeneral()));
 	connect(ui->privateButton, SIGNAL(clicked()), this, SLOT(goToPrivate()));
 	connect(ui->changeNameSettings, SIGNAL(clicked()), this, SLOT(changeNameSurname()));
+	connect(ui->addPhotoButton, SIGNAL(clicked()), this, SLOT(addPhoto()));
+	connect(ui->changeProfileButton, SIGNAL(clicked()), this, SLOT(changeProfilePhoto()));
 }
 
 void LoginPanel::setComponents() {
@@ -49,7 +53,8 @@ void LoginPanel::setComponents() {
 	ui->loginButton->setStyleSheet("QPushButton{""background-color:#36D62D;" "border-radius:5px;" "outline:none;" "width:75px;" "height:24px;""}" "QPushButton:hover{""background-color:#14B40B;""}");
 	ui->registerButton->setStyleSheet("QPushButton{""background-color:#1c74b2;" "border-radius:5px;" "outline:none;" "width:75px;" "height:24px;""}" "QPushButton:hover{""background-color:#0A5290;""}");
 	ui->quitButton->setStyleSheet("QPushButton{""background-color:#c20f02;" "border-radius:5px;" "outline:none;" "width:75px;" "height:24px;" "color:#CCC""}" "QPushButton:hover{""background-color:#A00D00;""}");
-	//#1c74b2
+	
+	ui->registerLabel->setStyleSheet("color:white;");
 	ui->emailLabel->setStyleSheet("color:white;");
 	ui->passwordLabel_2->setStyleSheet("color:white;");
 	ui->nameLabel->setStyleSheet("color:white;");
@@ -59,8 +64,8 @@ void LoginPanel::setComponents() {
 	styleLineEdit(ui->passwordTxt_2);
 	styleLineEdit(ui->nameTxt);
 	styleLineEdit(ui->surnameTxt);
-	//styleLineEdit(ui->ageSpinBox);
-	ui->registerButton_2->setStyleSheet("background-color:#36D62D;");
+	ui->registerButton_2->setStyleSheet("QPushButton{""background-color:#36D62D;" "border-radius:5px;" "outline:none;" "width:75px;" "height:24px;""}" "QPushButton:hover{""background-color:#14B40B;""}");
+	ui->backButton->setStyleSheet("QPushButton{""background-color:#c20f02;" "border-radius:5px;" "outline:none;" "width:75px;" "height:24px;" "color:#CCC""}" "QPushButton:hover{""background-color:#A00D00;""}");
 
 	styleIconButton(ui->settingsButton, QString("..\\LoginPanel\\image\\settingsIcon2.png"));
 	styleIconButton(ui->logOutButton, QString("..\\LoginPanel\\image\\logOutIcon2.png"));
@@ -79,6 +84,8 @@ void LoginPanel::setComponents() {
 	ui->nameLabelSet->setStyleSheet("color:white;");
 	ui->surnameLabelSet->setStyleSheet("color:white;");
 	ui->changeNameSettings->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->addPhotoButton->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->changeProfileButton->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
 }
 
 void LoginPanel::login() {
@@ -95,13 +102,24 @@ void LoginPanel::login() {
 
 void LoginPanel::loginResult(bool result){
 	if (result) {
-		QSqlQuery dataQuery("SELECT name,surname FROM loginPassword WHERE login='" + ui->loginTxt->text() + "'");
+		QSqlQuery dataQuery("SELECT name,surname,profilePhoto FROM loginPassword WHERE login='" + ui->loginTxt->text() + "'");
 		QString name = "";
 		QString surname = "";
+		QPixmap profilePhoto(150,150);
 
 		while (dataQuery.next()) {
 			name = dataQuery.value(0).toString();
 			surname = dataQuery.value(1).toString();
+			if (dataQuery.value(2).toByteArray() == nullptr) {
+				profilePhoto.fill(QColor(255, 255, 255));
+				ui->profilePhoto->setPixmap(profilePhoto);
+				ui->profilePhotoLabel->setPixmap(profilePhoto);
+			}
+			else {
+				profilePhoto.loadFromData(dataQuery.value(2).toByteArray());
+				ui->profilePhoto->setPixmap(profilePhoto);
+				ui->profilePhotoLabel->setPixmap(profilePhoto);
+			}
 		}
 
 		ui->emailTxtSet->setText(ui->loginTxt->text());
@@ -115,6 +133,8 @@ void LoginPanel::loginResult(bool result){
 
 		ui->nameTxtSet->setText(name);
 		ui->surnameTxtSet->setText(surname);
+
+		
 	}
 	else{
 		ui->loginResultText->setText("Login or password are not correct.");
@@ -166,7 +186,18 @@ void LoginPanel::goToPrivate(){
 }
 
 void LoginPanel::registerUser(){
-	bool emailIsCorrect = verifyData::checkEmail(ui->emailTxt->text().toUtf8().constData());
+	/*bool emailIsCorrect = verifyData::checkEmail(ui->emailTxt->text().toUtf8().constData());
+	bool emailIsNotExist = checkEmailIsNotExist(ui->emailTxt->text());
+	if (!emailIsCorrect || !emailIsNotExist) {
+		ui->emailError->setText("E-mail is not correct or is exist");
+		ui->emailError->setStyleSheet("color: red");
+	}
+	else {
+		ui->emailError->setText("E-mail is correct");
+		ui->emailError->setStyleSheet("color: green");
+	}*/
+
+	bool emailIsCorrect = verifyData::emailCheck(ui->emailTxt->text().toUtf8().constData());
 	bool emailIsNotExist = checkEmailIsNotExist(ui->emailTxt->text());
 	if (!emailIsCorrect || !emailIsNotExist) {
 		ui->emailError->setText("E-mail is not correct or is exist");
@@ -237,6 +268,26 @@ void LoginPanel::changeNameSurname(){
 		updateQuery.exec("UPDATE loginPassword SET name='" + ui->nameTxtSet->text() + "' , surname='" + ui->surnameTxtSet->text() 
 			+ "' WHERE login='" + ui->emailTxtSet->text() + "'");
 		QMessageBox::information(this, "", "Dates was changed.");
+	}
+	else {
+		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+}
+
+void LoginPanel::addPhoto(){
+	QString fileName = QFileDialog::getOpenFileName(this,tr("Load Image"), "", tr("Image Files (*.png *.jpg *.bmp)"));
+	QPixmap profilePhoto(fileName);
+	filePhotoName = fileName;
+	ui->profilePhotoLabel->setPixmap(profilePhoto);
+}
+
+void LoginPanel::changeProfilePhoto(){
+	if (db.openDatabase()) {
+		QPixmap pixmap(filePhotoName);
+		QSqlQuery query;
+		query.exec("UPDATE loginPassword SET profilePhoto=(SELECT * FROM OPENROWSET(BULK '"+filePhotoName+"',SINGLE_BLOB) AS img) WHERE login='"+ui->emailTxtSet->text()+"' ");
+		QMessageBox::information(this, "", "Image was saved");
+		ui->profilePhoto->setPixmap(pixmap);
 	}
 	else {
 		QMessageBox::information(this, "Database driver", "Database is not open.");

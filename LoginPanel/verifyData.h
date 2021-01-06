@@ -3,10 +3,16 @@
 
 #include <string>
 #include <set>
+#include <regex>
 
 namespace verifyData {
 	bool isMonkey(std::string& eMail) {
 		return (eMail.find('@') != std::string::npos) ? false : true;
+	}
+
+	bool emailCheck(const std::string& email){
+		const std::regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+		return std::regex_match(email, pattern);
 	}
 
 	bool checkEmail(std::string email) {

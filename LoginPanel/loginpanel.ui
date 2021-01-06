@@ -254,6 +254,19 @@
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="profilePhoto">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>150</width>
+        <height>150</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="registerPage">
      <widget class="QLabel" name="registerLabel">
@@ -261,13 +274,15 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>100</width>
-        <height>20</height>
+        <width>121</width>
+        <height>25</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -487,7 +502,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Email error</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="passwordError">
@@ -505,7 +520,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Password error</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="nameError">
@@ -523,7 +538,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Name error</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="surnameError">
@@ -541,7 +556,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Surname error</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="ageError">
@@ -559,7 +574,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Age error</string>
+        <string/>
        </property>
       </widget>
       <widget class="QWidget" name="layoutWidget">
@@ -663,14 +678,14 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="generalPage">
        <widget class="QLabel" name="nameLabelSet">
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>30</y>
+          <y>20</y>
           <width>50</width>
           <height>16</height>
          </rect>
@@ -688,7 +703,7 @@
         <property name="geometry">
          <rect>
           <x>30</x>
-          <y>60</y>
+          <y>50</y>
           <width>150</width>
           <height>20</height>
          </rect>
@@ -703,7 +718,7 @@
         <property name="geometry">
          <rect>
           <x>210</x>
-          <y>30</y>
+          <y>20</y>
           <width>70</width>
           <height>16</height>
          </rect>
@@ -721,7 +736,7 @@
         <property name="geometry">
          <rect>
           <x>210</x>
-          <y>60</y>
+          <y>50</y>
           <width>150</width>
           <height>20</height>
          </rect>
@@ -736,7 +751,7 @@
         <property name="geometry">
          <rect>
           <x>370</x>
-          <y>55</y>
+          <y>45</y>
           <width>81</width>
           <height>31</height>
          </rect>
@@ -748,6 +763,83 @@
         </property>
         <property name="text">
          <string>Change</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="photoLabel">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>90</y>
+          <width>100</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Profile photo</string>
+        </property>
+       </widget>
+       <widget class="QGraphicsView" name="photoViewSettings">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>130</y>
+          <width>150</width>
+          <height>150</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="changeProfileButton">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>210</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Change photo</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addPhotoButton">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>160</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Add photo</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="profilePhotoLabel">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>130</y>
+          <width>150</width>
+          <height>150</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>

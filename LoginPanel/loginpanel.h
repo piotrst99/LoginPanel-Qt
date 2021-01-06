@@ -19,6 +19,7 @@ private:
 	DatabaseConnect db;
 
 	QString email;
+	QString filePhotoName;
 
 	void setSignals();
 	void setComponents();
@@ -38,6 +39,8 @@ private slots:
 	//void changePage(int page);
 	void registerUser();
 	void changeNameSurname();
+	void addPhoto();
+	void changeProfilePhoto();
 
 public slots:
 

@@ -19,12 +19,16 @@ private:
 	DatabaseConnect db;
 
 	QString email;
+	QString name;
+	QString surname;
 	QString filePhotoName;
 
 	void setSignals();
 	void setComponents();
 	void loginResult(bool result);
 	bool checkEmailIsNotExist(QString email);
+	void clearPrivateSettings();
+	void setGeneralSettings();
 
 private slots:
 	void login();
@@ -40,7 +44,10 @@ private slots:
 	void registerUser();
 	void changeNameSurname();
 	void addPhoto();
+	void deleteProfilePhoto();
 	void changeProfilePhoto();
+	void changeEmail();
+	void changePassword();
 
 public slots:
 

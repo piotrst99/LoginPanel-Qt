@@ -40,6 +40,9 @@ void LoginPanel::setSignals(){
 	connect(ui->changeNameSettings, SIGNAL(clicked()), this, SLOT(changeNameSurname()));
 	connect(ui->addPhotoButton, SIGNAL(clicked()), this, SLOT(addPhoto()));
 	connect(ui->changeProfileButton, SIGNAL(clicked()), this, SLOT(changeProfilePhoto()));
+	connect(ui->deleteProfileButton, SIGNAL(clicked()), this, SLOT(deleteProfilePhoto()));
+	connect(ui->changeEmailSettings, SIGNAL(clicked()), this, SLOT(changeEmail()));
+	connect(ui->changePasswordSettings, SIGNAL(clicked()), this, SLOT(changePassword()));
 }
 
 void LoginPanel::setComponents() {
@@ -86,6 +89,22 @@ void LoginPanel::setComponents() {
 	ui->changeNameSettings->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
 	ui->addPhotoButton->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
 	ui->changeProfileButton->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->deleteProfileButton->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->changeEmailSettings->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->changePasswordSettings->setStyleSheet("QPushButton{""background:#626f82;" "border:1px solid #2b333e;" "border-radius:5px;" "width:75px;" "height:24px;" "outline:none;" "color:#CCC""}" "QPushButton:hover{""background-color:#404D60;""}");
+	ui->photoLabel->setStyleSheet("color:white;");
+	ui->emailSetLabel->setStyleSheet("color:white;");
+	ui->passwordSetLabel->setStyleSheet("color:white;");
+	ui->changeEmailLabel->setStyleSheet("color:white;");
+	ui->changePasswordForEmailLabel->setStyleSheet("color:white;");
+	ui->changePasswordLabel->setStyleSheet("color:white;");
+	ui->changePasswordLabel_2->setStyleSheet("color:white;");
+	ui->changePasswordLabel_3->setStyleSheet("color:white;");
+	styleLineEdit(ui->emailTxtSet);
+	styleLineEdit(ui->passwordForEmailTxt);
+	styleLineEdit(ui->oldPasswordTxt);
+	styleLineEdit(ui->newPasswordTxt);
+	styleLineEdit(ui->newPasswordTxt_2);
 }
 
 void LoginPanel::login() {
@@ -110,10 +129,13 @@ void LoginPanel::loginResult(bool result){
 		while (dataQuery.next()) {
 			name = dataQuery.value(0).toString();
 			surname = dataQuery.value(1).toString();
+			this->name = name;
+			this->surname = surname;
 			if (dataQuery.value(2).toByteArray() == nullptr) {
 				profilePhoto.fill(QColor(255, 255, 255));
 				ui->profilePhoto->setPixmap(profilePhoto);
 				ui->profilePhotoLabel->setPixmap(profilePhoto);
+				email = ui->loginTxt->text();
 			}
 			else {
 				profilePhoto.loadFromData(dataQuery.value(2).toByteArray());
@@ -146,6 +168,12 @@ void LoginPanel::loginResult(bool result){
 
 void LoginPanel::logOut(){
 	ui->stackedWidget->setCurrentIndex(0);
+	ui->welcomeLabel->clear();
+	ui->profilePhoto->clear();
+	ui->nameTxtSet->clear();
+	ui->surnameTxtSet->clear();
+	ui->profilePhotoLabel->clear();
+	ui->emailTxtSet->clear();
 }
 
 void LoginPanel::registerPanel(){
@@ -175,14 +203,18 @@ void LoginPanel::goToSetting(){
 
 void LoginPanel::backToMenu(){
 	ui->stackedWidget->setCurrentIndex(1);
+	clearPrivateSettings();
+	setGeneralSettings();
 }
 
 void LoginPanel::goToGeneral(){
 	ui->settingsStackedWidget->setCurrentIndex(0);
+	clearPrivateSettings();
 }
 
 void LoginPanel::goToPrivate(){
 	ui->settingsStackedWidget->setCurrentIndex(1);
+	setGeneralSettings();
 }
 
 void LoginPanel::registerUser(){
@@ -281,16 +313,155 @@ void LoginPanel::addPhoto(){
 	ui->profilePhotoLabel->setPixmap(profilePhoto);
 }
 
+void LoginPanel::deleteProfilePhoto(){
+	if (db.openDatabase()) {
+		QPixmap pixmap(150, 150);
+		QSqlQuery deletePhotoQuery;
+		deletePhotoQuery.exec("UPDATE loginPassword SET profilePhoto=NULL WHERE login='" + ui->emailTxtSet->text() + "' ");
+		pixmap.fill(QColor(255, 255, 255));
+		ui->profilePhoto->setPixmap(pixmap);
+		ui->profilePhotoLabel->setPixmap(pixmap);
+	}
+	else {
+		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+}
+
 void LoginPanel::changeProfilePhoto(){
 	if (db.openDatabase()) {
 		QPixmap pixmap(filePhotoName);
 		QSqlQuery query;
-		query.exec("UPDATE loginPassword SET profilePhoto=(SELECT * FROM OPENROWSET(BULK '"+filePhotoName+"',SINGLE_BLOB) AS img) WHERE login='"+ui->emailTxtSet->text()+"' ");
+		query.exec("UPDATE loginPassword SET profilePhoto=(SELECT * FROM OPENROWSET(BULK '" + filePhotoName + "',SINGLE_BLOB) AS img) WHERE login='" + ui->emailTxtSet->text() + "' ");
 		QMessageBox::information(this, "", "Image was saved");
 		ui->profilePhoto->setPixmap(pixmap);
 	}
 	else {
 		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+}
+
+void LoginPanel::changeEmail(){
+	bool passwordIsCorrext = false;
+	bool emailIsValid = false;
+
+	if (db.openDatabase()) {
+		QString password;
+		QSqlQuery getPasswordQuery;
+		getPasswordQuery.exec("SELECT password FROM loginPassword WHERE login='" + email + "'");
+		while (getPasswordQuery.next()) {
+			password = getPasswordQuery.value(0).toString();
+			if (password == ui->passwordForEmailTxt->text()) {
+				passwordIsCorrext = true;	
+			}
+			else {
+				passwordIsCorrext = false;
+			}
+		}
+	}
+	else {
+		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+
+	if (passwordIsCorrext) {
+		ui->passwordSetError->setText("Password is valid");
+		ui->passwordSetError->setStyleSheet("color:green;");
+	}
+	else {
+		ui->passwordSetError->setText("Password is not valid");
+		ui->passwordSetError->setStyleSheet("color:red;");
+	}
+
+	emailIsValid = verifyData::emailCheck(ui->emailTxtSet->text().toUtf8().constData());
+	if (emailIsValid) {
+		ui->emailSetError->setText("E-mail is valid");
+		ui->emailSetError->setStyleSheet("color:green;");
+	}
+	else {
+		ui->emailSetError->setText("E-mail is not valid");
+		ui->emailSetError->setStyleSheet("color:red;");
+	}
+
+	if (passwordIsCorrext && emailIsValid) {
+		if (db.openDatabase()) {
+			int id;
+			QSqlQuery getIdQuery;
+			getIdQuery.exec("SELECT id FROM loginPassword WHERE login='" + email + "'");
+			while (getIdQuery.next()) {
+				id = getIdQuery.value(0).toInt();
+			}
+
+			QSqlQuery changeEmailQuery;
+			changeEmailQuery.exec("UPDATE loginPassword SET login='" + ui->emailTxtSet->text() + "' WHERE id='" + QString::number(id) + "' ");
+			QMessageBox::information(this, "", "E-mail is changed.");
+			email = ui->emailTxtSet->text();
+		}
+		else {
+			QMessageBox::information(this, "Database driver", "Database is not open.");
+		}
+		ui->passwordForEmailTxt->clear();
+		ui->emailSetError->clear();
+		ui->passwordSetError->clear();
+	}
+}
+
+void LoginPanel::changePassword(){
+	bool oldPasswordIsCorrect=false;
+	bool newPasswordIsValid = false;
+
+	if (db.openDatabase()) {
+		QString password;
+		QSqlQuery getPasswordQuery;
+		getPasswordQuery.exec("SELECT password FROM loginPassword WHERE login='" + email + "'");
+		while (getPasswordQuery.next()) {
+			password = getPasswordQuery.value(0).toString();
+			if (password == ui->oldPasswordTxt->text()) {
+				oldPasswordIsCorrect = true;
+			}
+			else {
+				oldPasswordIsCorrect = false;
+			}
+		}
+	}
+	else {
+		QMessageBox::information(this, "Database driver", "Database is not open.");
+	}
+
+	if (oldPasswordIsCorrect) {
+		ui->passwordSetError_2->setText("Password is valid");
+		ui->passwordSetError_2->setStyleSheet("color:green;");
+	}
+	else {
+		ui->passwordSetError_2->setText("Password is not valid");
+		ui->passwordSetError_2->setStyleSheet("color:red;");
+	}
+
+	newPasswordIsValid = (verifyData::checkPassword(ui->newPasswordTxt->text().toUtf8().constData())
+		&& verifyData::checkPassword(ui->newPasswordTxt_2->text().toUtf8().constData())
+		&& ui->newPasswordTxt->text() == ui->newPasswordTxt_2->text());
+
+	if (newPasswordIsValid) {
+		ui->passwordSetError_3->setText("Password are not valid");
+		ui->passwordSetError_3->setStyleSheet("color:green;");
+	}
+	else {
+		ui->passwordSetError_3->setText("Password are not valid");
+		ui->passwordSetError_3->setStyleSheet("color:red;");
+	}
+
+	if (oldPasswordIsCorrect && newPasswordIsValid) {
+		if (db.openDatabase()) {
+			QSqlQuery checkPasswordQuery;
+			checkPasswordQuery.exec("UPDATE loginPassword SET password='"+ui->newPasswordTxt->text()+"' WHERE login='" + email + "'");
+			QMessageBox::information(this, "", "Password is changed.");
+			ui->oldPasswordTxt->clear();
+			ui->newPasswordTxt->clear();
+			ui->newPasswordTxt_2->clear();
+			ui->passwordSetError_2->clear();
+			ui->passwordSetError_3->clear();
+		}
+		else {
+			QMessageBox::information(this, "Database driver", "Database is not open.");
+		}
 	}
 }
 
@@ -306,24 +477,23 @@ bool LoginPanel::checkEmailIsNotExist(QString email) {
 	}
 }
 
+void LoginPanel::clearPrivateSettings(){
+	ui->emailTxtSet->setText(email);
+	ui->passwordForEmailTxt->clear();
+	ui->emailSetError->clear();
+	ui->passwordSetError->clear();
+	ui->oldPasswordTxt->clear();
+	ui->newPasswordTxt->clear();
+	ui->newPasswordTxt_2->clear();
+	ui->passwordSetError_2->clear();
+	ui->passwordSetError_3->clear();
+}
+
+void LoginPanel::setGeneralSettings(){
+	ui->nameTxtSet->setText(this->name);
+	ui->surnameTxtSet->setText(this->surname);
+}
+
 void LoginPanel::quit() {
 	QApplication::quit();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// https://www.youtube.com/watch?v=6_elY8O20I8
-
-// https://www.youtube.com/watch?v=BYQxCyB-TP4

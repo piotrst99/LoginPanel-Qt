@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="loginPage">
      <widget class="QGroupBox" name="loginBox">
@@ -261,6 +261,59 @@
         <y>90</y>
         <width>150</width>
         <height>150</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="nameMainLabel">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>260</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="surnameMainLabel">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>300</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="activeUserButton">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>20</y>
+        <width>40</width>
+        <height>40</height>
        </rect>
       </property>
       <property name="text">
@@ -678,7 +731,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="generalPage">
        <widget class="QLabel" name="nameLabelSet">
@@ -1276,6 +1329,39 @@
         </property>
        </widget>
       </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QPushButton" name="backMenuButton_2">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>20</y>
+        <width>40</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="activeUserLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Active users</string>
+      </property>
      </widget>
     </widget>
    </widget>

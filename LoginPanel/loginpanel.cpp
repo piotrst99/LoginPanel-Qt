@@ -35,6 +35,7 @@ void LoginPanel::setSignals(){
 	connect(ui->registerButton_2, SIGNAL(clicked()), this, SLOT(registerUser()));
 	connect(ui->settingsButton, SIGNAL(clicked()), this, SLOT(goToSetting()));
 	connect(ui->backMenuButton, SIGNAL(clicked()), this, SLOT(backToMenu()));
+	connect(ui->backMenuButton_2, SIGNAL(clicked()), this, SLOT(backToMenu()));
 	connect(ui->generalButton, SIGNAL(clicked()), this, SLOT(goToGeneral()));
 	connect(ui->privateButton, SIGNAL(clicked()), this, SLOT(goToPrivate()));
 	connect(ui->changeNameSettings, SIGNAL(clicked()), this, SLOT(changeNameSurname()));
@@ -43,6 +44,7 @@ void LoginPanel::setSignals(){
 	connect(ui->deleteProfileButton, SIGNAL(clicked()), this, SLOT(deleteProfilePhoto()));
 	connect(ui->changeEmailSettings, SIGNAL(clicked()), this, SLOT(changeEmail()));
 	connect(ui->changePasswordSettings, SIGNAL(clicked()), this, SLOT(changePassword()));
+	connect(ui->activeUserButton, SIGNAL(clicked()), this, SLOT(goToActiveUser()));
 }
 
 void LoginPanel::setComponents() {
@@ -73,9 +75,15 @@ void LoginPanel::setComponents() {
 	styleIconButton(ui->settingsButton, QString("..\\LoginPanel\\image\\settingsIcon2.png"));
 	styleIconButton(ui->logOutButton, QString("..\\LoginPanel\\image\\logOutIcon2.png"));
 	styleIconButton(ui->backMenuButton, QString("..\\LoginPanel\\image\\backIcon2.png"));
+	styleIconButton(ui->backMenuButton_2, QString("..\\LoginPanel\\image\\backIcon2.png"));
+	//sciezka jest do zmiany i dodac obrazek aktywni uzytkownicy
+	styleIconButton(ui->activeUserButton, QString("..\\LoginPanel\\image\\backIcon2.png"));
 
 	ui->welcomeLabel->setStyleSheet("color:#CCC;");
 	ui->settingsLabel->setStyleSheet("color:#CCC;");
+	ui->nameMainLabel->setStyleSheet("color:#CCC;");
+	ui->surnameMainLabel->setStyleSheet("color:#CCC;");
+	ui->profilePhoto->setStyleSheet("border: 5px solid white; border-radius:10px;");
 
 	styleButtonInSettings(ui->generalButton);
 	styleButtonInSettings(ui->privateButton);
@@ -105,6 +113,8 @@ void LoginPanel::setComponents() {
 	styleLineEdit(ui->oldPasswordTxt);
 	styleLineEdit(ui->newPasswordTxt);
 	styleLineEdit(ui->newPasswordTxt_2);
+
+	ui->activeUserLabel->setStyleSheet("color:white;");
 }
 
 void LoginPanel::login() {
@@ -143,6 +153,9 @@ void LoginPanel::loginResult(bool result){
 				ui->profilePhotoLabel->setPixmap(profilePhoto);
 			}
 		}
+		
+		ui->nameMainLabel->setText(name);
+		ui->surnameMainLabel->setText(surname);
 
 		ui->emailTxtSet->setText(ui->loginTxt->text());
 		ui->loginTxt->clear();
@@ -174,6 +187,8 @@ void LoginPanel::logOut(){
 	ui->surnameTxtSet->clear();
 	ui->profilePhotoLabel->clear();
 	ui->emailTxtSet->clear();
+	ui->nameMainLabel->clear();
+	ui->surnameMainLabel->clear();
 }
 
 void LoginPanel::registerPanel(){
@@ -215,6 +230,10 @@ void LoginPanel::goToGeneral(){
 void LoginPanel::goToPrivate(){
 	ui->settingsStackedWidget->setCurrentIndex(1);
 	setGeneralSettings();
+}
+
+void LoginPanel::goToActiveUser(){
+	ui->stackedWidget->setCurrentIndex(4);
 }
 
 void LoginPanel::registerUser(){
@@ -300,6 +319,12 @@ void LoginPanel::changeNameSurname(){
 		updateQuery.exec("UPDATE loginPassword SET name='" + ui->nameTxtSet->text() + "' , surname='" + ui->surnameTxtSet->text() 
 			+ "' WHERE login='" + ui->emailTxtSet->text() + "'");
 		QMessageBox::information(this, "", "Dates was changed.");
+		ui->nameMainLabel->setText(ui->nameTxtSet->text());
+		ui->surnameMainLabel->setText(ui->surnameTxtSet->text());
+		this->name = ui->nameTxtSet->text();
+		ui->nameTxtSet->setText(this->name);
+		this->surname = ui->surnameTxtSet->text();
+		ui->surnameTxtSet->setText(this->surname);
 	}
 	else {
 		QMessageBox::information(this, "Database driver", "Database is not open.");

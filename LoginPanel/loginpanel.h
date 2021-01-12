@@ -40,6 +40,7 @@ private slots:
 	void backToMenu();
 	void goToGeneral();
 	void goToPrivate();
+	void goToActiveUser();
 	//void changePage(int page);
 	void registerUser();
 	void changeNameSurname();

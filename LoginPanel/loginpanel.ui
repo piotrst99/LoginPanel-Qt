@@ -1363,6 +1363,16 @@
        <string>Active users</string>
       </property>
      </widget>
+     <widget class="QTableWidget" name="userTableWidget">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>400</width>
+        <height>260</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

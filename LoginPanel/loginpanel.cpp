@@ -6,6 +6,8 @@
 #include "settingsFunction.h"
 #include <QFileDialog>
 #include <QBuffer>
+#include <QTableWidgetItem>
+#include "User.h"
 
 LoginPanel::LoginPanel(QWidget* parent) 
 	: QMainWindow(parent), ui(new Ui::LoginPanelClass),
@@ -77,7 +79,7 @@ void LoginPanel::setComponents() {
 	styleIconButton(ui->backMenuButton, QString("..\\LoginPanel\\image\\backIcon2.png"));
 	styleIconButton(ui->backMenuButton_2, QString("..\\LoginPanel\\image\\backIcon2.png"));
 	//sciezka jest do zmiany i dodac obrazek aktywni uzytkownicy
-	styleIconButton(ui->activeUserButton, QString("..\\LoginPanel\\image\\backIcon2.png"));
+	styleIconButton(ui->activeUserButton, QString("..\\LoginPanel\\image\\userIcon2.png"));
 
 	ui->welcomeLabel->setStyleSheet("color:#CCC;");
 	ui->settingsLabel->setStyleSheet("color:#CCC;");
@@ -169,6 +171,8 @@ void LoginPanel::loginResult(bool result){
 		ui->nameTxtSet->setText(name);
 		ui->surnameTxtSet->setText(surname);
 
+		addItemFromUserTableWiew();
+
 		
 	}
 	else{
@@ -176,8 +180,6 @@ void LoginPanel::loginResult(bool result){
 		ui->loginResultText->setStyleSheet("color:red");
 	}
 }
-
-//void LoginPanel::changePage(int indexPage){ui->stackedWidget->setCurrentIndex(indexPage);}
 
 void LoginPanel::logOut(){
 	ui->stackedWidget->setCurrentIndex(0);
@@ -237,17 +239,6 @@ void LoginPanel::goToActiveUser(){
 }
 
 void LoginPanel::registerUser(){
-	/*bool emailIsCorrect = verifyData::checkEmail(ui->emailTxt->text().toUtf8().constData());
-	bool emailIsNotExist = checkEmailIsNotExist(ui->emailTxt->text());
-	if (!emailIsCorrect || !emailIsNotExist) {
-		ui->emailError->setText("E-mail is not correct or is exist");
-		ui->emailError->setStyleSheet("color: red");
-	}
-	else {
-		ui->emailError->setText("E-mail is correct");
-		ui->emailError->setStyleSheet("color: green");
-	}*/
-
 	bool emailIsCorrect = verifyData::emailCheck(ui->emailTxt->text().toUtf8().constData());
 	bool emailIsNotExist = checkEmailIsNotExist(ui->emailTxt->text());
 	if (!emailIsCorrect || !emailIsNotExist) {
@@ -488,6 +479,30 @@ void LoginPanel::changePassword(){
 			QMessageBox::information(this, "Database driver", "Database is not open.");
 		}
 	}
+}
+
+void LoginPanel::addItemFromUserTableWiew(){
+	ui->userTableWidget->setColumnCount(4);
+	ui->userTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+	QStringList headerList;
+	headerList << "Name" << "Surname" << "Age" << "Active";
+	ui->userTableWidget->setHorizontalHeaderLabels(headerList);
+	
+	QSqlQuery addUserQuery;
+	addUserQuery.exec("SELECT name,surname,age from loginPassword;");
+
+	QList<User*> users;
+	while (addUserQuery.next()) {
+		users.push_back(new User(addUserQuery.value(0).toString(), addUserQuery.value(1).toString(), addUserQuery.value(2).toInt(), false));
+	}
+	
+	for(User *u : users) {
+		u->setUserToTable(ui->userTableWidget);
+	}
+
+	ui->userTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui->userTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 bool LoginPanel::checkEmailIsNotExist(QString email) {

@@ -41,7 +41,6 @@ private slots:
 	void goToGeneral();
 	void goToPrivate();
 	void goToActiveUser();
-	//void changePage(int page);
 	void registerUser();
 	void changeNameSurname();
 	void addPhoto();
@@ -49,9 +48,10 @@ private slots:
 	void changeProfilePhoto();
 	void changeEmail();
 	void changePassword();
+	void addItemFromUserTableWiew();
 
 public slots:
-
+	
 };
 
 #endif // !LOGINPANEL_H
